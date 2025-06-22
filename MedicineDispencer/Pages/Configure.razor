@@ -3,7 +3,6 @@
 @inject PillDispenserContext Db
 @inject IJSRuntime JSRuntime
 @using Microsoft.EntityFrameworkCore
-@using System.ComponentModel.DataAnnotations
 
 <div class="container">
     <div class="card mb-4">
@@ -24,7 +23,6 @@
             <div class="mb-3">
                 <label class="form-label">Kies compartiment:</label>
                 <select class="form-select" @bind="selectedCompartmentNumber" @bind:event="onchange">
-
                     <option disabled value="">-- Selecteer een compartiment --</option>
                     @for (int i = 1; i <= 4; i++)
                     {
@@ -45,23 +43,8 @@
             </div>
 
             <div class="mb-3">
-                <label class="form-label">Doseringstijden (seconden):</label>
-                @if (dosingIntervals.Count == 0)
-                {
-                    <p class="text-muted">Geen doseringstijden ingesteld</p>
-                }
-                @for (int i = 0; i < dosingIntervals.Count; i++)
-                {
-                    <div class="input-group mb-2">
-                        <input type="number" class="form-control" @bind="dosingIntervals[i]" min="1" />
-                        <button type="button" class="btn btn-outline-danger" @onclick="() => RemoveDosingTime(i)">
-                            Verwijder
-                        </button>
-                    </div>
-                }
-                <button type="button" class="btn btn-outline-primary" @onclick="AddDosingTime">
-                    ➕ Interval toevoegen
-                </button>
+                <label class="form-label">Doseringsinterval (in seconden):</label>
+                <input type="number" class="form-control" @bind="dosingInterval" min="1" />
             </div>
 
             <button type="button" class="btn btn-primary mt-3" @onclick="SaveCompartmentConfig" disabled="@isSaving">
@@ -85,9 +68,9 @@
 
 @code {
     private int selectedMedicationId;
-    private List<int> dosingIntervals = new();
+    private int dosingInterval = 30;
     private List<MedicationStock> medications = new();
-    
+
     private string statusMessage = string.Empty;
     private string statusType = "success";
     private bool isSaving = false;
@@ -104,11 +87,9 @@
         }
     }
 
-
     protected override async Task OnInitializedAsync()
     {
         medications = await Db.Medications.ToListAsync();
-        await base.OnInitializedAsync();
     }
 
     private async Task OnCompartmentSelected(int compartmentNumber)
@@ -121,31 +102,15 @@
         if (existing != null)
         {
             selectedMedicationId = existing.MedicationId ?? 0;
-            dosingIntervals = existing.DosingTimes.Select(dt => dt.IntervalSeconds).ToList();
+            dosingInterval = existing.DosingTimes.FirstOrDefault()?.IntervalSeconds ?? 30;
         }
         else
         {
             selectedMedicationId = 0;
-            dosingIntervals.Clear();
+            dosingInterval = 30;
         }
 
         StateHasChanged();
-    }
-
-
-    private void AddDosingTime()
-    {
-        dosingIntervals.Add(30); // default 30s
-        StateHasChanged();
-    }
-
-    private void RemoveDosingTime(int index)
-    {
-        if (index >= 0 && index < dosingIntervals.Count)
-        {
-            dosingIntervals.RemoveAt(index);
-            StateHasChanged();
-        }
     }
 
     private async Task SaveCompartmentConfig()
@@ -156,9 +121,9 @@
 
         try
         {
-            if (selectedCompartmentNumber < 1 || selectedMedicationId == 0 || !dosingIntervals.Any())
+            if (selectedCompartmentNumber < 1 || selectedMedicationId == 0 || dosingInterval <= 0)
             {
-                statusMessage = "⚠️ Vul alle velden in en voeg minstens één interval toe.";
+                statusMessage = "⚠️ Vul alle velden in en geef een geldige doseringstijd op.";
                 statusType = "warning";
                 return;
             }
@@ -177,40 +142,37 @@
 
             if (existingCompartment != null)
             {
-                // Update existing compartment
                 existingCompartment.MedicationId = selectedMedicationId;
                 existingCompartment.Stock = medication.Stock;
-                
-                // Remove existing dosing times
+
                 Db.DosingTimes.RemoveRange(existingCompartment.DosingTimes);
-                
-                // Add new dosing times
-                existingCompartment.DosingTimes = dosingIntervals
-                    .Select(seconds => new DosingTime { IntervalSeconds = seconds })
-                    .ToList();
+
+                existingCompartment.DosingTimes = new List<DosingTime>
+                {
+                    new DosingTime { IntervalSeconds = dosingInterval }
+                };
             }
             else
             {
-                // Create new compartment
                 var newCompartment = new Compartment
                 {
                     CompartmentNumber = selectedCompartmentNumber,
                     MedicationId = selectedMedicationId,
                     Stock = medication.Stock,
-                    DosingTimes = dosingIntervals
-                        .Select(seconds => new DosingTime { IntervalSeconds = seconds })
-                        .ToList()
+                    DosingTimes = new List<DosingTime>
+                    {
+                        new DosingTime { IntervalSeconds = dosingInterval }
+                    }
                 };
                 await Db.Compartments.AddAsync(newCompartment);
             }
 
             await Db.SaveChangesAsync();
             statusMessage = $"✅ Compartiment {selectedCompartmentNumber} succesvol geconfigureerd.";
-            
-            // Reset form
+
             selectedCompartmentNumber = 0;
             selectedMedicationId = 0;
-            dosingIntervals.Clear();
+            dosingInterval = 30;
         }
         catch (Exception ex)
         {
@@ -226,7 +188,7 @@
 
     private async Task ResetAllCompartments()
     {
-        var confirmed = await JSRuntime.InvokeAsync<bool>("confirm", 
+        var confirmed = await JSRuntime.InvokeAsync<bool>("confirm",
             "Weet u zeker dat u ALLE compartimenten wilt resetten?\nDeze actie kan niet ongedaan worden gemaakt!");
 
         if (!confirmed) return;
@@ -246,7 +208,7 @@
 
             selectedCompartmentNumber = 0;
             selectedMedicationId = 0;
-            dosingIntervals.Clear();
+            dosingInterval = 30;
         }
         catch (Exception ex)
         {
@@ -259,5 +221,4 @@
             StateHasChanged();
         }
     }
-
 }
