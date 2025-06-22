@@ -65,4 +65,3 @@ C:\Users\aidan\OneDrive\Documenten\CODE\Projects\Atlas_DispencerApp\MedicineDisp
 C:\Users\aidan\OneDrive\Documenten\CODE\Projects\Atlas_DispencerApp\MedicineDispencer\obj\Debug\net7.0\MedicineDispencer.pdb
 C:\Users\aidan\OneDrive\Documenten\CODE\Projects\Atlas_DispencerApp\MedicineDispencer\obj\Debug\net7.0\MedicineDispencer.genruntimeconfig.cache
 C:\Users\aidan\OneDrive\Documenten\CODE\Projects\Atlas_DispencerApp\MedicineDispencer\obj\Debug\net7.0\ref\MedicineDispencer.dll
-C:\Users\aidan\OneDrive\Documenten\CODE\Projects\Atlas_DispencerApp\MedicineDispencer\obj\Debug\net7.0\MedicineDispencer.sourcelink.json

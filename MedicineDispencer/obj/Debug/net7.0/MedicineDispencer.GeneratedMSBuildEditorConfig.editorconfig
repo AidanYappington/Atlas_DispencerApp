@@ -24,6 +24,34 @@ build_property.EnableCodeStyleSeverity =
 build_metadata.AdditionalFiles.TargetPath = QXBwLnJhem9y
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/Users/aidan/OneDrive/Documenten/CODE/Projects/Atlas_DispencerApp/MedicineDispencer/Pages/Compartments.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQ29tcGFydG1lbnRzLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/aidan/OneDrive/Documenten/CODE/Projects/Atlas_DispencerApp/MedicineDispencer/Pages/Configure.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQ29uZmlndXJlLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/aidan/OneDrive/Documenten/CODE/Projects/Atlas_DispencerApp/MedicineDispencer/Pages/Index.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcSW5kZXgucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/aidan/OneDrive/Documenten/CODE/Projects/Atlas_DispencerApp/MedicineDispencer/Pages/Refill.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUmVmaWxsLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/aidan/OneDrive/Documenten/CODE/Projects/Atlas_DispencerApp/MedicineDispencer/Pages/Stock.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU3RvY2sucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/aidan/OneDrive/Documenten/CODE/Projects/Atlas_DispencerApp/MedicineDispencer/_Imports.razor]
 build_metadata.AdditionalFiles.TargetPath = X0ltcG9ydHMucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/aidan/OneDrive/Documenten/CODE/Projects/Atlas_DispencerApp/MedicineDispencer/Pages/Error.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRXJyb3IuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/aidan/OneDrive/Documenten/CODE/Projects/Atlas_DispencerApp/MedicineDispencer/Pages/_Host.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcX0hvc3QuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
