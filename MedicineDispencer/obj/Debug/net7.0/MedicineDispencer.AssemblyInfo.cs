@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("MedicineDispencer")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+e6b688963361b546488f18f52ad393c3fbe59b41")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+a8dece813511d7c9291c4f2081bf0eb8a432def3")]
 [assembly: System.Reflection.AssemblyProductAttribute("MedicineDispencer")]
 [assembly: System.Reflection.AssemblyTitleAttribute("MedicineDispencer")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
